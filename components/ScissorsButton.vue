@@ -1,7 +1,7 @@
 <template>
-    <div class="outer-layer w-36 h-36 p-4 rounded-full">
+    <div class="outer-layer w-full h-full p-3 sm:p-4 rounded-full">
         <div class="inner-layer bg-white w-full h-full rounded-full flex justify-center items-center">
-            <img src="~/assets/icons/icon-scissors.svg" alt="paper icon">
+            <img class="icon" src="~/assets/icons/icon-scissors.svg" alt="paper icon">
         </div>
     </div>
 </template>
@@ -21,5 +21,10 @@
     .inner-layer {
         background-color: #DEDEDE;
         box-shadow: inset 0 5px 0 0 #BCC1D5;
+    }
+
+    .icon {
+        width: 50%;
+        height: 50%;
     }
 </style>
