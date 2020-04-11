@@ -1,40 +1,51 @@
 <template>
-    <div class="container w-full h-full flex justify-around items-center">
-        <div class="chosenContainer flex flex-col items-center">
-            <div class="hidden sm:block mb-8">
-                <span class="text-white text-sm sm:text-xl uppercase tracking-widest">You Picked</span>
-            </div>
-            <div class="w-32 h-32 sm:w-64 sm:h-64">
-                <component 
+    <div class="container w-full h-full flex flex-col justify-around text-center">
+        <div class="flex justify-around items-center">
+            <div class="chosenContainer w-1/3 sm:w-1/4 flex flex-col items-center">
+                <div class="hidden sm:block mb-8">
+                    <span class="text-white text-sm sm:text-xl uppercase tracking-widest">You Picked</span>
+                </div>
+                <component
                     :is="chosenComponent"
-                    border-size-class="p-4 sm:p-8"
                 ></component>
+                <div class="block sm:hidden mt-8">
+                    <span class="text-white text-sm sm:text-xl uppercase tracking-widest">You Picked</span>
+                </div>
             </div>
-            <div class="block sm:hidden mt-8">
-                <span class="text-white text-sm sm:text-xl uppercase tracking-widest">You Picked</span>
-            </div>
-        </div>
-        <div class="otherPlayerChosenContainer flex flex-col items-center">
-            <div class="hidden sm:block mb-8">
-                <span class="text-white text-sm sm:text-xl uppercase tracking-widest">The House Picked</span>
-            </div>
-            <div class="w-32 h-32 sm:w-64 sm:h-64">
+
+            <transition name="fade">
+                <div v-show="opponentChosen !== null" class="win-status hidden sm:block">
+                    <win-status @resetGame="$emit('resetGame')" :winStatus="winStatus"></win-status>
+                </div>
+            </transition>
+
+            <div class="otherPlayerChosenContainer w-1/3 sm:w-1/4 flex flex-col items-center">
+                <div class="hidden sm:block mb-8">
+                    <span class="text-white text-sm sm:text-xl uppercase tracking-widest">The House Picked</span>
+                </div>
                 <transition name="fade" mode="out-in">
                     <template v-if="opponentChosen !== null">
                         <component
                             :is="opponentChosenComponent"
-                            border-size-class="p-4 sm:p-8"
                         ></component>
                     </template>
                     <template v-else>
-                        <div class="w-full h-full rounded-full bg-black opacity-25"></div>
+                        <client-only>
+                            <vue-aspect-ratio ar="1:1" class="w-full rounded-full bg-black opacity-25"></vue-aspect-ratio>
+                        </client-only>
                     </template>
                 </transition>
-            </div>
-            <div class="block sm:hidden mt-8">
-                <span class="text-white text-sm sm:text-xl uppercase tracking-widest">The House Picked</span>
+                <div class="block sm:hidden mt-8">
+                    <span class="text-white text-sm sm:text-xl uppercase tracking-widest">The House Picked</span>
+                </div>
             </div>
         </div>
+
+        <transition name="fade">
+            <div v-show="opponentChosen !== null" class="win-status block sm:hidden">
+                <win-status @resetGame="$emit('resetGame')" :winStatus="winStatus"></win-status>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -42,17 +53,23 @@
     import RockButton from "./RockButton";
     import PaperButton from "./PaperButton";
     import ScissorsButton from "./ScissorsButton";
-
-    // import VueAspectRatio from "vue-aspect-ratio";
     
+    import WinStatus from "./WinStatus";
+
     export default {
         name: "Phase2",
-        components: {ScissorsButton},
+        components: {WinStatus, ScissorsButton},
         props: ['chosen'],
         data() {
             return {
                 opponentChosen: null,
             };
+        },
+        watch: {
+            opponentChosen: function (newVal) {
+                if(newVal !== null)
+                    this.$emit('opponentChosen', newVal);
+            }
         },
         computed: {
             chosenComponent() {
@@ -60,6 +77,18 @@
             },
             opponentChosenComponent() {
                 return this.respectiveItemComponent(this.opponentChosen);
+            },
+            winStatus() {
+                if(this.chosen === this.opponentChosen)
+                    return 'tie';
+                else if(this.chosen === 'rock' && this.opponentChosen === 'scissors')
+                    return 'win';
+                else if(this.chosen === 'scissors' && this.opponentChosen === 'paper')
+                    return 'win';
+                else if (this.chosen === 'paper' && this.opponentChosen === 'rock')
+                    return 'win';
+                else
+                    return 'lose';
             },
         },
         methods: {

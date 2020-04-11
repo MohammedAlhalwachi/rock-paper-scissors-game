@@ -1,9 +1,13 @@
 <template>
-    <div :class="[borderSizeClass]" class="outer-layer w-full h-full rounded-full" :style="boxShadowStyle + ' ' + borderColorStyle">
-        <div class="inner-layer bg-white w-full h-full rounded-full flex justify-center items-center">
-            <img class="icon" :src="iconSrc" alt="icon">
-        </div>
-    </div>
+    <client-only>
+        <vue-aspect-ratio ar="1:1" class="w-full">
+            <div class="outer-layer w-full h-full rounded-full" :style="boxShadowStyle + ' ' + borderColorStyle + '' + borderSizeStyle">
+                <div class="inner-layer bg-white w-full h-full rounded-full flex justify-center items-center">
+                    <img class="icon" :src="iconSrc" alt="icon">
+                </div>
+            </div>
+        </vue-aspect-ratio>
+    </client-only>
 </template>
 
 <script>
@@ -12,7 +16,7 @@
         props: {
             borderSizeClass: {
                 type: String,
-                default: 'p-3 sm:p-4'
+                default: 'p-3 md:p-4'
             },
             iconSrc: String, 
             baseColor: String,
@@ -25,22 +29,9 @@
             borderColorStyle(){
                 return `background-color: ${this.baseColor};`;
             },
-            // borderSizeClass(){
-            //     let sizeNumber = 0;
-            //     switch (this.size) {
-            //         case 'sm':
-            //             sizeNumber = 3;
-            //             break;
-            //         case 'md':
-            //             sizeNumber = 5;
-            //             break;
-            //         case 'lg':
-            //             sizeNumber = 6;
-            //             break;
-            //     }
-            //    
-            //     return 'p-' + sizeNumber;
-            // }
+            borderSizeStyle(){
+                return `padding: 10%;`;
+            },
         }
     }
 </script>

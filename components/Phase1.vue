@@ -1,13 +1,11 @@
 <template>
     <div class="flex-grow flex flex-col justify-center items-center">
         <div class="top-row relative flex justify-center items-center pb-6">
-            <div @click="clicked('paper')" class="paper w-28 h-28 sm:w-40 sm:h-40 z-10">
-                <paper-button
-                    phase2="p-3 md:p-4"
-                ></paper-button>
+            <div @click="clicked('paper')" class="paper w-28 h-28 md:w-40 md:h-40 z-10">
+                <paper-button></paper-button>
             </div>
             <div class="line z-0 w-20 h-3"></div>
-            <div  @click="clicked('scissors')" class="scissors w-28 h-28 sm:w-40 sm:h-40 z-10">
+            <div  @click="clicked('scissors')" class="scissors w-28 h-28 md:w-40 md:h-40 z-10">
                 <scissors-button></scissors-button>
             </div>
         </div>
@@ -16,7 +14,7 @@
             <div class="line absolute -top-3 left-4 transform rotate-35 z-0 w-3 h-20"></div>
         </div>
         <div class="bottom-row relative rotate-45 flex justify-center">
-            <div @click="clicked('rock')" class="rock w-28 h-28 sm:w-40 sm:h-40">
+            <div @click="clicked('rock')" class="rock w-28 h-28 md:w-40 md:h-40">
                 <rock-button></rock-button>
             </div>
         </div>

@@ -1,6 +1,14 @@
+// const aspectRatio = require('v-aspect-ratio/dist/v-aspect-ratio.ssr');
 
 module.exports = {
-  mode: 'universal',
+  mode: 'universal', 
+    // render: {
+    //     bundleRenderer: {
+    //         directives: {
+    //             'aspect-ratio': aspectRatio.default
+    //         },
+    //     },
+    // },
   /*
   ** Headers of the page
   */
@@ -29,6 +37,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+      { src: '~/plugins/vue-aspect-ratio.js', mode: 'client' },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -43,6 +52,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+      'cookie-universal-nuxt',
   ],
   /*
   ** Axios module configuration
