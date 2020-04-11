@@ -1,14 +1,26 @@
 <template>
-    <div class="outer-layer w-full h-full p-3 sm:p-4 rounded-full">
-        <div class="inner-layer bg-white w-full h-full rounded-full flex justify-center items-center">
-            <img class="icon" src="~/assets/icons/icon-paper.svg" alt="paper icon">
-        </div>
-    </div>
+    <base-item-button
+        :borderSizeClass="borderSizeClass"
+        :icon-src="iconSrc"
+        :base-color="baseColor"
+        :dark-color="darkColor"
+    ></base-item-button>
 </template>
 
 <script>
+    import BaseItemButton from "./BaseItemButton";
+    
     export default {
-        name: "PaperButton"
+        name: "PaperButton",
+        components: {BaseItemButton},
+        props: ['borderSizeClass'],
+        data() {
+            return {
+                iconSrc: '/icons/icon-paper.svg',
+                baseColor: '#5672F0',
+                darkColor: '#2945C3',
+            };
+        },
     }
 </script>
 

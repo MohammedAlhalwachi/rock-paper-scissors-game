@@ -6,8 +6,8 @@
         
         <div class="main flex-grow flex justify-center items-center">
             <transition name="fade" mode="out-in">
-                <items v-if="phase === 1" @itemClicked="itemClicked" key="phase-1"></items>
-                <div v-if="phase === 2" key="phase-2">fhfhf</div>
+                <Phase1 v-if="phase === 1" @itemClicked="itemClicked" key="phase1"></Phase1>
+                <Phase2 v-if="phase === 2" :chosen="selectedItem" key="phase2">fhfhf</Phase2>
             </transition>
         </div>
         
@@ -24,11 +24,12 @@
 <script>
     import TopBar from "../components/TopBar";
     import Rules from "../components/Rules";
-    import Items from "../components/Items";
+    import Phase1 from "../components/Phase1";
+    import Phase2 from "../components/Phase2";
 
     export default {
         name: "game.vue",
-        components: {Rules, TopBar, Items},
+        components: {Rules, TopBar, Phase1, Phase2},
         data() {
             return {
                 score: 12,

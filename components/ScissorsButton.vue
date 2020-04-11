@@ -1,30 +1,29 @@
 <template>
-    <div class="outer-layer w-full h-full p-3 sm:p-4 rounded-full">
-        <div class="inner-layer bg-white w-full h-full rounded-full flex justify-center items-center">
-            <img class="icon" src="~/assets/icons/icon-scissors.svg" alt="paper icon">
-        </div>
-    </div>
+    <base-item-button
+        :borderSizeClass="borderSizeClass"
+        :icon-src="iconSrc"
+        :base-color="baseColor"
+        :dark-color="darkColor"
+    ></base-item-button>
 </template>
 
 <script>
+    import BaseItemButton from "./BaseItemButton";
+    
     export default {
-        name: "ScissorsButton"
+        name: "ScissorsButton",
+        components: {BaseItemButton},
+        props: ['borderSizeClass'],
+        data() {
+            return {
+                iconSrc: '/icons/icon-scissors.svg',
+                baseColor: '#EDA725',
+                darkColor: '#C76C1D',
+            };
+        },
     }
 </script>
 
 <style scoped>
-    .outer-layer {
-        background-color: #EDA725;
-        box-shadow: 0 8px 0 0 #C76C1D;
-        margin-bottom: 8px;
-    }
-    .inner-layer {
-        background-color: #DEDEDE;
-        box-shadow: inset 0 5px 0 0 #BCC1D5;
-    }
-
-    .icon {
-        width: 50%;
-        height: 50%;
-    }
+    
 </style>

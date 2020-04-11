@@ -2,7 +2,9 @@
     <div class="flex-grow flex flex-col justify-center items-center">
         <div class="top-row relative flex justify-center items-center pb-6">
             <div @click="clicked('paper')" class="paper w-28 h-28 sm:w-40 sm:h-40 z-10">
-                <paper-button></paper-button>
+                <paper-button
+                    phase2="p-3 md:p-4"
+                ></paper-button>
             </div>
             <div class="line z-0 w-20 h-3"></div>
             <div  @click="clicked('scissors')" class="scissors w-28 h-28 sm:w-40 sm:h-40 z-10">
@@ -27,7 +29,7 @@
     import ScissorsButton from "./ScissorsButton";
     
     export default {
-        name: "Items",
+        name: "Phase1",
         components: {RockButton, PaperButton, ScissorsButton},
         methods: {
             clicked(type) {
